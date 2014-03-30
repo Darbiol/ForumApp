@@ -4,6 +4,7 @@
 	<title>Feline Forum</title>
 	<link rel="stylesheet" type="text/css" href="./assets/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="./assets/css/applications.css">
+	<link rel="stylesheet" type="text/css" href="./assets/css/jquery.pnotify.default.css">
 
 </head>
 <body>
@@ -29,129 +30,168 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 
 <script type="text/javascript" src="./assets/js/vendor/jquery.js"></script>
+<script type="text/javascript" src="./assets/js/vendor/jquery.pnotify.js"></script>
 <script type="text/javascript" src="./assets/js/vendor/underscore.js"></script>
 <script type="text/javascript" src="./assets/js/vendor/backbone.js"></script>
 <script type="text/javascript" src="./assets/js/vendor/backbone.marionette.js"></script>
+<script type="text/javascript" src="./assets/js/app.js"></script>
+<script type="text/javascript" src="./assets/js/app/visitor_home/visitorHome_view.js"></script>
+<script type="text/javascript" src="./assets/js/app/visitor_home/visitorHome_controller.js"></script>
 
-<script type="text/template" id='home-template'>
-		<div class="row">
-			<div class="col-md-1"></div>
-			<div class="col-md-5">
-				<form id="login-form" role="form">
-					<h2>Register</h2>
-				  <div class="form-group">
-					    <label for="register-email">Email address</label>
-					    <input type="email" class="form-control" id="register-email" placeholder="Enter Email">
-				  </div>
-				  <div class="form-group">
-					    <label for="register-password">Password</label>
-					    <input type="password" class="form-control" id="register-password" placeholder="Password">
-				  </div>
-				  <div class="form-group">
-					    <label for="register-firstName">First Name</label>
-					    <input type="password" class="form-control" id="register-firstName" placeholder="First Name">
-				  </div>
-				  <div class="form-group">
-					    <label for="register-lastName">Last Name</label>
-					    <input type="password" class="form-control" id="register-lastName" placeholder="Last Name">
-				  </div>
-				  <div class="form-group">
-					    <label for="register-dateOfBirth">Date of Birth</label>
-					    <input type="password" class="form-control" id="register-dateOfBirth" placeholder="Date Of Birth">
-				  </div>
-				  <div class="form-group">
-					    <label for="register-secret-question">Security Question</label>
-					    <select class='form-control' id="register-secret-question">
-					    	<option value="">Select a question</option>
-					    	<option value="1">Who is your childhood superhero?</option>
-					    	<option value="2">What is your favorite sport?</option>
-					    	<option value="3">What is your mother`s maiden name?</option>
-					    	<option value="4">Who is your childhood superhero?</option>
-					    	<option value="5">What is your childhood nickname?</option>
-					    </select>
+<script type="text/template" id="login-register-template">
+	<div class="row">
+		<div class="col-md-1"></div>
 
-				  </div>
-				  <div class="form-group">
-					    <label for="register-secret-answer">Security Answer</label>
-					    <input type="password" class="form-control" id="register-secret-answer" placeholder="Secret Question Answer">
-				  </div>
-				  <button id="register-button" type="submit" class="btn btn-primary">Submit</button>
-				</form>
-			</div>
-			<div class="col-md-1"></div>
-			<div class="col-md-4">
-				<form id="login-form" role="form">
-					<h2>Login</h2>
-				  <div class="form-group">
-					    <label for="login-username">Email address</label>
-					    <label class="error-message"></label>
-					    <input type="text" class="form-control" id="login-username" placeholder="Enter Username">
-				  </div>
-				  <div class="form-group">
-					    <label for="login-password">Password</label>
-					    <label class="error-message"></label>
-					    <input type="password" class="form-control" id="login-password" placeholder="Password">
-				  </div>
-				  <button id="login-button" type="submit" class="btn btn-primary">Login</button>
-				  <a class="btn btn-default" id="forgot-password" >I forgot my password</a>
-				</form>
-			</div>
-			<div class="col-md-1"></div>
+		<div class="col-md-5" id="register-region">
+
 		</div>
+
+		<div class="col-md-1"></div>
+
+		<div class="col-md-4" id="login-region">
+		</div>
+
+		<div class="col-md-1"></div>
+	</div>
+</script>
+
+<!-- REGISTER TEMPLATE -->
+<script type="text/template" id="register-template">
+	<form id="login-form" role="form">
+		  <h2>Register</h2>
+		  <div class="form-group">
+			    <label for="register-email">Email address</label>
+			    <input type="email" class="form-control" id="register-email" placeholder="Enter Email">
+		  </div>
+
+		  <div class="form-group">
+			    <label for="register-firstName">First Name</label>
+			    <input type="text" class="form-control" id="register-firstName" placeholder="First Name">
+		  </div>
+		  <div class="form-group">
+			    <label for="register-lastName">Last Name</label>
+			    <input type="text" class="form-control" id="register-lastName" placeholder="Last Name">
+		  </div>
+		  <div class="form-group">
+			    <label for="register-dateOfBirth">Date of Birth</label>
+			    <input type="text" class="form-control" id="register-dateOfBirth" placeholder="Date Of Birth">
+		  </div>
+		  <div class="form-group">
+			    <label for="register-secret-question">Security Question</label>
+			    <select class='form-control' id="register-security-question">
+			    	<option>Select a question</option>
+			    	<option>Who is your childhood superhero?</option>
+			    	<option>What is your favorite sport?</option>
+			    	<option>What is your mother`s maiden name?</option>
+			    	<option>Who is your childhood superhero?</option>
+			    	<option>What is your childhood nickname?</option>
+			    </select>
+
+		  </div>
+		  <div class="form-group">
+			    <label for="register-secret-answer">Security Answer</label>
+			    <input type="text" class="form-control" id="register-security-answer" placeholder="Secret Question Answer">
+		  </div>
+		  <button id="register-button" type="submit" class="btn btn-primary">Submit</button>
+	</form>
+</script>
+
+<!-- LOGIN TEMPLATE -->
+<script type="text/template" id="login-template">
+	<form id="login-form" role="form">
+	  <h2>Login</h2>
+	  <div class="form-group">
+		    <label for="login-username">Email address</label>
+		    <label class="error-message"></label>
+		    <input type="text" class="form-control" id="login-username" placeholder="Enter Username">
+	  </div>
+	  <div class="form-group">
+		    <label for="login-password">Password</label>
+		    <label class="error-message"></label>
+		    <input type="password" class="form-control" id="login-password" placeholder="Password">
+	  </div>
+	  <button id="login-button" type="submit" class="btn btn-primary">Login</button>
+	  <a class="btn btn-default" id="forgot-password" >I forgot my password</a>
+	</form>
+</script>
+
+<!-- FORGOT PASSWORD -->
+<script type="text/template" id="forgot-password-template">
+	<form id="login-form" role="form">
+	  <h2>Forgot Password</h2>
+	  <div class="form-group">
+		    <label for="login-username">Email address</label>
+		    <label class="error-message"></label>
+		    <input type="text" class="form-control" id="forgot-username" placeholder="Enter Username">
+	  </div>
+	  <div class="form-group">
+		    <label for="register-secret-question">Security Question</label>
+		    <select class='form-control' id="forgot-security-question">
+		    	<option>Select a question</option>
+		    	<option>Who is your childhood superhero?</option>
+		    	<option>What is your favorite sport?</option>
+		    	<option>What is your mother`s maiden name?</option>
+		    	<option>Who is your childhood superhero?</option>
+		    	<option>What is your childhood nickname?</option>
+		    </select>
+	  </div>
+	   <div class="form-group">
+		    <label for="register-secret-answer">Security Answer</label>
+		    <input type="text" class="form-control" id="forgot-security-answer" placeholder="Secret Question Answer">
+	  </div>
+	  <button id="login-button" type="submit" class="btn btn-primary">Submit</button>
+	  <a class="btn btn-default" id="back-to-login" >Back to login</a>
+	</form>
 </script>
 
 <script type="text/javascript">
-	var ForumApp = new Marionette.Application();
+	// var ForumApp = new Marionette.Application();
 
-	ForumApp.addRegions({
-		mainRegion : '#main-region'
-	})
+	// //Region
+	// ForumApp.MainRegion = Marionette.Region.extend({
+	// 	el : '#main-region'
+	// })
 
+	// //layout
+	// ForumApp.VisitorLayout = Backbone.Marionette.Layout.extend({
+	// 	template : '#login-register-template',
+	// 	regions : {
+	// 		registerRegion : '#register-region',
+	// 		loginRegion : '#login-region'
+	// 	}
+	// });
 
-	ForumApp.HomeView = Marionette.ItemView.extend({
-		template : '#home-template',
-		events : {
-			'click button#login-button' : 'validateLogin',
-			'click button#register-button' : 'validateRegister'
-		},
-		validateLogin : function(e){
-			e.preventDefault();
-			var form = $(e.target).closest('form');
-			var loginField = form.children('.form-group').children('input');
-			var isEmpty = false;
-			// check if any of the inputs are empty
-			loginField.each(function(){
-				//console.log($(this).val());
-				if($(this).val().trim() === ""){
-					isEmpty = isEmpty || true;
-				}else{
-					isEmpty = isEmpty || false;
-				}
-			})
+	//Register Item View
+	// ForumApp.RegisterView = Marionette.ItemView.extend({
+	// 	template : '#register-template',
+	// 	events : {
+			 
+	// 	}
+	// })
 
-			if(isEmpty === false){
-					//check if email is valid
-					//POST TO SERVER TO CHEK IF USER IS REGISTERED
-					//var emailRegex = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-					var username = $('#login-username').val();
-					console.log(username.test(emailRegex));
-
-			}else{
-				//there are empty fields
-				form.children('.form-group').addClass('has-error');
-				form.children('.form-group').children('.error-message').html('Please Fill-up Empty Fields').css('color','#a94442').css('font-weight','normal')
-			}
-		}
-	});
+	//Login Item View
+	// ForumApp.LoginView = Marionette.ItemView.extend({
+	// 	template : '#login-tenmplate'
+	// })
 
 
 
+	// ForumApp.on('initialize:after', function(){
+	// 	console.log('marionette started');
 
-	ForumApp.on('initialize:after', function(){
-		console.log('marionette app initialized');
-		var homeView = new ForumApp.HomeView();
-		ForumApp.mainRegion.show(homeView);
-	});
+	// 	//var registerView = new ForumApp.visitorsView();
+	// 	// var layout = new ForumApp.VisitorLayout();
+	// 	// var container = new ForumApp.MainRegion();
+
+	// 	// var loginView = new ForumApp.LoginView();
+	// 	// var registerView = new ForumApp.RegisterView();
+
+	// 	// container.show(layout);
+
+	// 	// layout.registerRegion.show(registerView);
+	// 	// layout.loginRegion.show(loginView);
+		
+	// })
 
 	ForumApp.start();
 </script>

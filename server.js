@@ -19,9 +19,10 @@ mongoose.connect('mongodb://root:root@ds035907.mongolab.com:35907/felineforum', 
 
 
 var allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+   // res.header('Content-Type', 'application/json');
 
     // intercept OPTIONS method
     if ('OPTIONS' == req.method) {
@@ -40,13 +41,14 @@ app.configure(function () {
 	// this project's files
 	app.use( express.static( files ));
 	// default favicon
-	app.use( express.favicon() );
+	//app.use( express.favicon() );
 });
 
 
-app.get('/getUsers', userApi.getAllUsers);//get all
+//app.get('/getUsers', userApi.getAllUsers);//get all
 app.post('/addUser', userApi.addUser);
-app.get('/userProfile', userApi.getUserApi);
+app.post('/checkUsers', userApi.checkUsers)
+//app.get('/userProfile', userApi.getUserApi);
 
 server.listen( port, function(){
 	//console.log(files);
