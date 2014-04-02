@@ -2,16 +2,26 @@ ForumApp.module('Forums.HomeView', function ( HomeView, ForumApp, Backbone, Mari
 
 	//layout
 	HomeView.VisitorLayout = Backbone.Marionette.Layout.extend({
+		initialize : function() {
+		},
 		template : '#login-register-template',
 		regions : {
 			registerRegion : '#register-region',
-			loginRegion : '#login-region'
+			loginRegion : '#login-region',
+			navbarRegion : '#navbar-region'
 		}
 	});
 
-	//Region
+
+	// MAIN Region
 	HomeView.MainRegion = Marionette.Region.extend({
 		el : '#main-region'
+	})
+
+
+	//navbar Item view
+	HomeView.VisitorNavbarView = Marionette.ItemView.extend({
+		template : '#visitor-navbar-template'
 	})
 
 	//Register Item View
@@ -19,7 +29,7 @@ ForumApp.module('Forums.HomeView', function ( HomeView, ForumApp, Backbone, Mari
 		template : '#register-template',
 		events : {
 			 'click button#register-button' : 'verifyInputs',
-			 
+
 		},
 		verifyInputs : function(e){
 			e.preventDefault();
@@ -52,7 +62,7 @@ ForumApp.module('Forums.HomeView', function ( HomeView, ForumApp, Backbone, Mari
 		showSuccessNotification : function () {
 			$.pnotify({
                 title : 'Success!',
-                text : 'You have successfully registered to this website.',
+                text : 'You have successfully registered to this website. An email has been sent to your email address 	with your login information.',
                 type : 'success',
                 opacity : 1,
                 delay : 1500,
@@ -79,22 +89,61 @@ ForumApp.module('Forums.HomeView', function ( HomeView, ForumApp, Backbone, Mari
 		template : '#login-template',
 		events : {
 			'click a#forgot-password' : 'goToForgotPassword',
-			'click button#login-button' : 'checkLogin'
+			'click button#login-button' : 'checkLogin',
 		},
 		goToForgotPassword : function (e){
 			e.preventDefault();
 			console.log('change vuew');
-			this.trigger('user:forgot');
+			ForumApp.trigger('user:forgotView');
 		},
 		checkLogin : function (e){
 			e.preventDefault();
 			console.log('checkLogin');
+			//this.trigger('user:login');
+			this.authenticate();
+		},
+		authenticate : function (){
+			var loginData = {
+				"username" : $( '#login-username' ).val(),
+				"password" : $( '#login-password' ).val()
+			}
+			var self = this;
+			console.log(loginData);
+			$.ajax({
+				type : 'POST',
+				url : 'http://localhost:3020/authenticate',
+				data : loginData,
+				success : function ( data, textStatus, jqXHR ){
+					console.log('success')
+					console.log(data)
+					if( data.loggedIn == true ){
+						console.log("ok to change page");
+						ForumApp.trigger('user:login');
+					}else{
+						console.log(data.message);
+						self.invalidLogin(data.message);
+					}
+				},
+				failed : function ( jqXHR, textStatus, errorThrown ){
+					console.log('failed')
+				}
+			});
+		},
+		invalidLogin : function ( message ){
+			var form = $('#login-form');
+			var formChildren = form.children('div');
+			formChildren.addClass('has-error');
+			formChildren.children('.error-message').html(message).css('color', '#a94442').css('font-weight','normal	')
+			console.log(formChildren);
 		}
 
 	});
 
 	//Forgot password Item View
 	HomeView.ForgotPasswordView = Marionette.ItemView.extend({
+		initialize : function() {
+			this.on( 'user:forgot' );
+		},
 		template : '#forgot-password-template',
 		events : {
 			'click a#back-to-login' : 'backToLogin'
@@ -102,7 +151,7 @@ ForumApp.module('Forums.HomeView', function ( HomeView, ForumApp, Backbone, Mari
 		backToLogin : function (e){
 			e.preventDefault();
 			console.log('go back to login');
-			this.trigger('user:login');
+			ForumApp.trigger('user:loginView');
 		}
 	});
 });

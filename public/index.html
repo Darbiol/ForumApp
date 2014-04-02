@@ -8,16 +8,9 @@
 
 </head>
 <body>
-	<div class="navbar navbar-inverse navbar-fixed-top">
-		<div class="navbar-inner">
-			<!-- <div class="container"> -->
-				<span class="navbar-brand">Feline Forums</span>
-				<!-- <span>Feline Forum</span> -->
-			<!-- </div> -->
-		</div>
-	</div>
-
 	<div class="container" id="main-region">
+
+
 		<p>
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -31,14 +24,21 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 <script type="text/javascript" src="./assets/js/vendor/jquery.js"></script>
 <script type="text/javascript" src="./assets/js/vendor/jquery.pnotify.js"></script>
+<script type="text/javascript" src="./assets/js/vendor/bootstrap.js"></script>
 <script type="text/javascript" src="./assets/js/vendor/underscore.js"></script>
 <script type="text/javascript" src="./assets/js/vendor/backbone.js"></script>
 <script type="text/javascript" src="./assets/js/vendor/backbone.marionette.js"></script>
 <script type="text/javascript" src="./assets/js/app.js"></script>
 <script type="text/javascript" src="./assets/js/app/visitor_home/visitorHome_view.js"></script>
+<script type="text/javascript" src="./assets/js/app/forum/forum_view.js"></script>
 <script type="text/javascript" src="./assets/js/app/visitor_home/visitorHome_controller.js"></script>
+<script type="text/javascript" src="./assets/js/app/forum/forum_controller.js"></script>
+<script type="text/javascript" src="./assets/js/app/forums.js"></script>
 
+<!-- VISITOR HOME LAYOUT TEMPLATE -->
 <script type="text/template" id="login-register-template">
+	<div id="navbar-region">
+	</div>
 	<div class="row">
 		<div class="col-md-1"></div>
 
@@ -55,9 +55,25 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 	</div>
 </script>
 
+<!-- USER HOME LAYOUT TEMPLATE -->
+<script type="text/template" id="forum-layout-template">
+	<div id="navbar-region">
+	</div>
+	<div class="row">
+		<div class="col-md-1"></div>
+
+		<div class="col-md-10" id="forum-region">
+			<p>this is the forum area</p>
+		</div>
+
+		<div class="col-md-1"></div>
+	</div>
+</script>
+
+
 <!-- REGISTER TEMPLATE -->
 <script type="text/template" id="register-template">
-	<form id="login-form" role="form">
+	<form id="register-form" role="form">
 		  <h2>Register</h2>
 		  <div class="form-group">
 			    <label for="register-email">Email address</label>
@@ -95,12 +111,26 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 		  <button id="register-button" type="submit" class="btn btn-primary">Submit</button>
 	</form>
 </script>
+<!-- VISITOR's HOME NAVBAR -->
+<script type="text/template" id="visitor-navbar-template">
+<nav class="navbar navbar-inverse" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Feline Forum</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    </div>
+  </div>
+</nav>
+
+</script>
 
 <!-- LOGIN TEMPLATE -->
 <script type="text/template" id="login-template">
 	<form id="login-form" role="form">
 	  <h2>Login</h2>
-	  <div class="form-group">
+	  <div class="form-group" id="login-form">
 		    <label for="login-username">Email address</label>
 		    <label class="error-message"></label>
 		    <input type="text" class="form-control" id="login-username" placeholder="Enter Username">
@@ -117,7 +147,7 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 <!-- FORGOT PASSWORD -->
 <script type="text/template" id="forgot-password-template">
-	<form id="login-form" role="form">
+	<form id="forgot-form" role="form">
 	  <h2>Forgot Password</h2>
 	  <div class="form-group">
 		    <label for="login-username">Email address</label>
@@ -144,6 +174,77 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 	</form>
 </script>
 
+
+<!-- USER NAVBAR -->
+<script type="text/template" id="navbar-template">
+<nav class="navbar navbar-inverse" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Feline Forum</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#"><i class="glyphicon glyphicon-th-list"></i>Forums</a></li>
+        <li><a href="#"><i class="glyphicon glyphicon-inbox"></i>Inbox</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>Daniel Arbiol <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">My Account</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+</script>
+
+
+<script type="text/template" id="forum-view-template">
+	<div>
+		<p> Here is where your Forum View should show </p>
+	</div>
+</script>
+<script type="text/template" id="thread-view-template">
+	<div class="row itemThread">
+		<div class="col-md-12 thread">
+			<div class="col-md-8">
+				<h2 class="thread-title">Announcements</h2>
+				<p><span><i class = "glyphicon glyphicon-comment"></i> 3 Replies</span> <span class="recentPost"><i class="glyphicon glyphicon-user"></i>Recent Post: Daniel Arbiol</span></p>
+			</div>
+			<div class="col-md-2 ">
+				<div class='view'>
+					<span>Views</span>
+					<h3>5</h3>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class='reply'>
+					<span>Replies</span>
+					<h3>5</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</script>
+<script type="text/template" id="thread-reply-view"></script>
+
+
 <script type="text/javascript">
 	// var ForumApp = new Marionette.Application();
 
@@ -165,7 +266,7 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 	// ForumApp.RegisterView = Marionette.ItemView.extend({
 	// 	template : '#register-template',
 	// 	events : {
-			 
+
 	// 	}
 	// })
 
@@ -190,7 +291,7 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 	// 	// layout.registerRegion.show(registerView);
 	// 	// layout.loginRegion.show(loginView);
-		
+
 	// })
 
 	ForumApp.start();

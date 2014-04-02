@@ -23,8 +23,6 @@ exports.checkUsers = function ( req, res ){
 			res.send(200, doc);
 		}
 	})
-	
-
 }
 
 exports.addUser = function( req, res ){

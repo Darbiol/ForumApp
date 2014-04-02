@@ -2,3 +2,33 @@
 body {
 	padding-top: 60px;
 }
+
+i{
+	padding-right : 5px;
+}
+
+div.thread {
+	border : 1px solid #B8B8B8;
+	background-color: #9fd753;
+}
+
+div.view, div.reply {
+	margin : .4em;
+	padding : 5px;
+	background-color: #FFFFFF;
+	text-align: center;
+}
+
+span.recentPost {
+	padding-left : 20px;
+}
+
+h2.thread-title{
+	color : #6600CC;
+}
+
+a#thread-link:hover >.thread{
+	text-decoration :none;
+	color : black;
+	background-color: #FFFFFF;
+}
