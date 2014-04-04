@@ -80,6 +80,7 @@ app.configure(function () {
 //app.get('/getUsers', userApi.getAllUsers);//get all
 app.post('/addUser', userApi.addUser);
 app.post('/checkUsers', userApi.checkUsers)
+app.post('/logout', userApi.logout);
 //app.get('/userProfile', userApi.getUserApi);
 app.post('/authenticate', function (req, res, next){
 	passport.authenticate('local', function (err, user, info){
@@ -88,6 +89,7 @@ app.post('/authenticate', function (req, res, next){
 		req.logIn(user, function (err){
 			if(err){ return next(err);}
 			res.send(200, {message : null, loggedIn : true});
+
 			//return res.redirect('/myblogs');
 		});
 	})(req, res, next);

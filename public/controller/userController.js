@@ -25,6 +25,13 @@ exports.checkUsers = function ( req, res ){
 	})
 }
 
+exports.logout = function ( req, res ){
+	console.log(req)
+	req.logout();
+	console.log('this is server_logout');
+	res.send(200);
+}
+
 exports.addUser = function( req, res ){
 	var body = req.body;
 	var password = utilities.GeneratePassword();

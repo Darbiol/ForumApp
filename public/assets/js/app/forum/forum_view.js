@@ -13,7 +13,16 @@ ForumApp.module('Forums.ForumView', function ( ForumView, ForumApp, Backbone, Ma
 	});
 
 	ForumView.Navbar = Marionette.ItemView.extend({
-		template : '#navbar-template'
+		template : '#navbar-template',
+		events : {
+			'click a#logout' : 'logout'
+		},
+		logout : function (e){
+			e.preventDefault();
+			//console.log(this)
+			console.log('client logout');
+			ForumApp.trigger('user:logout');
+		}
 	});
 
 	ForumView.Forum = Marionette.ItemView.extend({
