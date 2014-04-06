@@ -118,7 +118,7 @@ ForumApp.module('Forums.HomeView', function ( HomeView, ForumApp, Backbone, Mari
 					console.log(data)
 					if( data.loggedIn == true ){
 						console.log("ok to change page");
-						ForumApp.trigger('user:login');
+						ForumApp.trigger('user:login', data);
 					}else{
 						console.log(data.message);
 						self.invalidLogin(data.message);

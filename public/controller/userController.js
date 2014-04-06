@@ -32,6 +32,8 @@ exports.logout = function ( req, res ){
 	res.send(200);
 }
 
+
+
 exports.addUser = function( req, res ){
 	var body = req.body;
 	var password = utilities.GeneratePassword();

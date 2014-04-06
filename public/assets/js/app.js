@@ -15,7 +15,8 @@ var ForumApp = new Marionette.Application();
 		//console.log(ForumApp);
 		if(Backbone.history){
 			Backbone.history.start();
-
+			var cookie = ForumApp.Forums.HomeView.Controller.checkCookie();
+			console.log("this is the cookie:"+ cookie);
 			//check if session is logged in.redirect to login if user tries to access #forums
 			// if(){
 

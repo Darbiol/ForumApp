@@ -89,7 +89,7 @@ app.post('/authenticate', function (req, res, next){
 		req.logIn(user, function (err){
 			if(err){ return next(err);}
 			res.send(200, {message : null, loggedIn : true});
-
+			console.log(res)
 			//return res.redirect('/myblogs');
 		});
 	})(req, res, next);

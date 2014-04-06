@@ -61,7 +61,9 @@ ForumApp.module('Forums.HomeView', function ( HomeView, ForumApp, Backbone, Mari
 				layout.loginRegion.show(new HomeView.LoginView());
 			})
 
-			ForumApp.on('user:login', function (){
+			ForumApp.on('user:login', function (data){
+				console.log(this);
+				//this.setCookie('loggenIn', data.loggenIn, 30)
 				//change route
 				ForumApp.navigate('home');
 				//change view
@@ -72,6 +74,35 @@ ForumApp.module('Forums.HomeView', function ( HomeView, ForumApp, Backbone, Mari
 			layout.navbarRegion.show(navbarView);
 			layout.registerRegion.show(registerView);
 			layout.loginRegion.show(loginView);
+		},
+		setCookie : function ( cookieName, cookieValue, expiryDays ) {
+			var date = new Date();
+			var hours = 24;
+			var mins= 60;
+			var secs= 60;
+			var miliSecs = 1000;
+			date.setTime(date.getTime() + (expiryDays*hours*mins*secs*miliSecs));
+			var expiry = "expires="+date.toGMTString();
+			return document.cookie = cookieName+'='+cookieValue+'; '+expiry;
+
+		},
+		getCookie : function ( cookieName ) {
+			var cookieArr = document.cookie.split();
+			var cookie;
+			var lowerLimit = cookieName+'=';
+			var i = 0;
+			for(i=0;i<cookieArr.length;i++){
+				cookie = cookieArr[i].trim();
+				if(cookie.indexOf(cookieName)==0){
+					return cookie.substring(lowerLimit.length, cookie.length);
+				}else{
+					return 0;
+				}
+			}
+		},
+		checkCookie : function (){
+			var user = this.getCookie();
+			return user;
 		}
 	}
 })
