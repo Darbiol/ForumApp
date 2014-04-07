@@ -114,8 +114,9 @@ ForumApp.module('Forums.HomeView', function ( HomeView, ForumApp, Backbone, Mari
 				url : 'http://localhost:3020/authenticate',
 				data : loginData,
 				success : function ( data, textStatus, jqXHR ){
+
 					console.log('success')
-					console.log(data)
+					console.log(jqXHR.getAllResponseHeaders());
 					if( data.loggedIn == true ){
 						console.log("ok to change page");
 						ForumApp.trigger('user:login', data);

@@ -27,8 +27,10 @@ exports.checkUsers = function ( req, res ){
 
 exports.logout = function ( req, res ){
 	console.log(req)
+	utilities.deleteCookie( res );
 	req.logout();
 	console.log('this is server_logout');
+	console.log(res);
 	res.send(200);
 }
 

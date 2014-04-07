@@ -11,7 +11,8 @@ LocalStrategy = require( 'passport-local' ).Strategy,
 crypto = require( 'crypto' ),
 mongoose = require( 'mongoose' ),
 userModel = require( './public/model/userModel.js' ),
-userApi = require( './public/controller/userController.js' )
+userApi = require( './public/controller/userController.js' ),
+utilities = require( './public/utilities/utilities.js' );
 
 mongoose.connect('mongodb://root:root@ds035907.mongolab.com:35907/felineforum', function (err){
 	if(err) {console.log(err);}
@@ -77,20 +78,22 @@ app.configure(function () {
 });
 
 
-//app.get('/getUsers', userApi.getAllUsers);//get all
 app.post('/addUser', userApi.addUser);
 app.post('/checkUsers', userApi.checkUsers)
 app.post('/logout', userApi.logout);
-//app.get('/userProfile', userApi.getUserApi);
+
 app.post('/authenticate', function (req, res, next){
 	passport.authenticate('local', function (err, user, info){
 		if(err){ return next(err);}
 		if(!user) {return res.send(200, {message : "Invalid username or password", loggedIn : false})}
 		req.logIn(user, function (err){
 			if(err){ return next(err);}
-			res.send(200, {message : null, loggedIn : true});
-			console.log(res)
-			//return res.redirect('/myblogs');
+
+			var expiry = utilities.setCookieExpiry(1);
+			res.writeHead(200, {'Set-Cookie' : '_felidae_=this; expires='+expiry});
+			//res.send(200, {message : null, loggedIn : true});
+			res.end();
+			console.log(res);
 		});
 	})(req, res, next);
 });
