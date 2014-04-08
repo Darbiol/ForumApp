@@ -17,9 +17,10 @@ var ForumApp = new Marionette.Application();
 			Backbone.history.start();
 			console.log("this is the cookie:");
 			//check if session is logged in.redirect to login if user tries to access #forums
-			// if(){
 
-			// }
+			if(this.getCurrentRoute() != ''){
+
+			}
 		}
 
 	})

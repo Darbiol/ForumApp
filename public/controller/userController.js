@@ -30,7 +30,7 @@ exports.logout = function ( req, res ){
 	utilities.deleteCookie( res );
 	req.logout();
 	console.log('this is server_logout');
-	console.log(res);
+	//console.log(res);
 	res.send(200);
 }
 

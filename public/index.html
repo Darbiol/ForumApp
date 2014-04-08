@@ -37,8 +37,7 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 <!-- VISITOR HOME LAYOUT TEMPLATE -->
 <script type="text/template" id="login-register-template">
-	<div id="navbar-region">
-	</div>
+	<div id="navbar-region"></div>
 	<div class="row">
 		<div class="col-md-1"></div>
 
@@ -69,6 +68,7 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 		<div class="col-md-1"></div>
 	</div>
 </script>
+
 
 
 <!-- REGISTER TEMPLATE -->
@@ -199,7 +199,7 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>Daniel Arbiol <b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li><a href="#">My Account</a></li>
+            <li><a href="#" id="my-account">My Account</a></li>
             <li class="divider"></li>
             <li><a href="#" id="logout">Logout</a></li>
           </ul>
@@ -211,6 +211,45 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 </script>
 
+<script type="text/template" id='myAccount-layout'>
+	<div id='profile-header-region'>
+	</div>
+	<div id='profile-info-region'>
+	</div>
+</script>
+
+<script type="text/template" id="profiles-header-template">
+	<div id="myaccount-container">This is the profile header div.</div>
+</script>
+
+<script type="text/template" id="profile-info-template">
+	<div>
+		<table class="table table-striped">
+			<tbody>
+				<tr>
+					<td>First Name:</td>
+					<td>Daniel</td>
+				</tr>
+				<tr>
+					<td>Last Name:</td>
+					<td>Arbiol</td>
+				</tr>
+				<tr>
+					<td>Email Address:</td>
+					<td>arbiol.daniel@hotmail.com</td>
+				</tr>
+				<tr>
+					<td>Date of Birth:</td>
+					<td>Febuary 31, 1934</td>
+				</tr>
+				<tr>
+					<td>Date of Birth:</td>
+					<td>Febuary 31, 1934</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</script>
 
 <script type="text/template" id="forum-view-template">
 	<div>

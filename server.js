@@ -88,12 +88,13 @@ app.post('/authenticate', function (req, res, next){
 		if(!user) {return res.send(200, {message : "Invalid username or password", loggedIn : false})}
 		req.logIn(user, function (err){
 			if(err){ return next(err);}
-
 			var expiry = utilities.setCookieExpiry(1);
-			res.writeHead(200, {'Set-Cookie' : '_felidae_=this; expires='+expiry});
-			//res.send(200, {message : null, loggedIn : true});
-			res.end();
-			console.log(res);
+			var authUser = utilities.encryptSession(req.user.email);
+			res.setHeader('Set-Cookie' , '_felidae_='+authUser+'; expires='+expiry);
+			//res.json(200, {message : null, loggedIn : true});
+			res.send(200, {message : null, loggedIn : true});
+			//res.end();
+			console.log(authUser);
 		});
 	})(req, res, next);
 });

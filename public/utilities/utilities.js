@@ -12,21 +12,28 @@ exports.GeneratePassword = function (){
 }
 
 exports.encryptSession = function ( user ){
-	var encryptedUser = '';
-	for(var i=0; i<user.length;i++){
-	   var temp = (parseInt(user.charCodeAt(i))^1)<<1;
-	   encryptedUser += String.fromCharCode(temp);
+	var alpha1 = "1234567890qwertyuiopasdfghjklzxcvbnm@._QWERTYUIOPASDFGHJKLZXCVBNM";
+	var alpha2 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890_.@";
+	var encoded = '';
+	for(var i=0;i<user.length;i++){
+		var charAt = user.charAt(i);
+		var index = alpha2.indexOf(charAt); //
+		encoded += alpha1.charAt(index);
 	}
-	return encryptedUser;
+	return encoded;
 }
 
 exports.decryptSession = function ( string ){
-	var converted = '';
-	for(var j=0;j<encryptedUser.length;j++){
-	   var temp = (encryptedUser.charCodeAt(j)>>1)^1;
-	   convert += String.fromCharCode(temp);
+	//var enc_user = "jTknW.NzjQnx.Mv_jn.NlW_";
+	var alpha1 = "1234567890qwertyuiopasdfghjklzxcvbnm@._QWERTYUIOPASDFGHJKLZXCVBNM";
+	var alpha2 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890_.@";
+	var decoded = '';
+	for(var i=0;i<string.length;i++){
+		var charAt = user.charAt(i);
+		var index = alpha1.indexOf(charAt); //
+		decoded += alpha2.charAt(index);
 	}
-	return convert;
+	return decoded;
 }
 
 exports.setCookieExpiry = function( days ){
@@ -37,7 +44,7 @@ exports.setCookieExpiry = function( days ){
 	var miliSecs = 1000;
 	var expiryDays = 1;
 	date.setTime(date.getTime() + (expiryDays*hours*mins*secs*miliSecs));
-	var expiry = "expires="+date.toGMTString();
+	var expiry = date.toGMTString();
 
 	return expiry;
 }

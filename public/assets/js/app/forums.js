@@ -1,20 +1,38 @@
-ForumApp.module('Forum', function ( Forums, ForumApp, Backbone, Marionette, $, _ ){
+ForumApp.module('Forums', function ( Forums, ForumApp, Backbone, Marionette, $, _ ){
 
 	Forums.Router = Marionette.AppRouter.extend({
 		appRoutes : {
 			'' : 'loginView',
-			"home" : 'forumHome'
+			'home' : 'forumHome',
+			'myAccount' : 'myAccount'
 		}
 	});
 
 	var API = {
 		forumHome : function (){
 			console.log('Routes activated!');
-			//ForumApp.Forums.HomeView.Controller.showHomeView();
-			ForumApp.Forums.ForumView.Controller.ForumShow();
+			console.log(cookie);
+			var cookie = ForumApp.Forums.ForumView.Controller.getCookie('_felidae_');
+			if(cookie == 0 || cookie == undefined){
+				ForumApp.navigate('');
+				ForumApp.Forums.HomeView.Controller.showHomeView();
+			}else{
+				ForumApp.navigate('#home');
+				ForumApp.Forums.ForumView.Controller.ForumShow();
+			}
 		},
 		loginView : function (){
-			ForumApp.Forums.HomeView.Controller.showHomeView();
+			var cookie = ForumApp.Forums.ForumView.Controller.getCookie('_felidae_');
+			if(cookie == 0 || cookie == undefined){
+				ForumApp.navigate('');
+				ForumApp.Forums.HomeView.Controller.showHomeView();
+			}else{
+				ForumApp.navigate('#home');
+				ForumApp.Forums.ForumView.Controller.ForumShow();
+			}
+		},
+		myAccount : function (){
+
 		}
 	};
 
