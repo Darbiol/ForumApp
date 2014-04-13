@@ -32,3 +32,40 @@ a#thread-link:hover >.thread{
 	color : black;
 	background-color: #FFFFFF;
 }
+
+div#myAccount-container > img {
+	position: absolute !important;
+}
+
+div#profile-header-container {
+	display: inline-block;
+	padding: 30px;
+	padding-bottom: 120px;
+}
+
+
+div#profile-header-container {
+	background-color: #6600CC;
+	color : #9fd753;
+	font-weight: bold;
+	font-family: Arial;
+	height: 150px;
+	margin-top: 20px;
+	margin-left: 50px;
+	padding-left : 200px;
+	text-align: center;
+	width: 75%;
+}
+
+div#profile-header-container>h1 {
+	background-color: #6600CC;
+	color : #9fd753;
+	font-size: 40px;
+	font-weight: bold;
+	font-family: Arial;
+
+}
+
+div#myaccount-container {
+	padding-bottom : 70px;
+}

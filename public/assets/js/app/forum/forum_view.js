@@ -55,6 +55,11 @@ ForumApp.module('Forums.ForumView', function ( ForumView, ForumApp, Backbone, Ma
 		},
 		myAccountLink : function (e){
 			e.preventDefault();
+			var context = $(e.target);
+			var contextDiv = context.closest('div');
+			var tab = contextDiv.children().eq(0);
+			console.log(tab.children().eq(0).toggleClass('active'))
+			console.log($(e.target).parent().toggleClass('active'));
 			console.log('go to my account');
 			ForumApp.trigger('user:myAccount');
 		}
